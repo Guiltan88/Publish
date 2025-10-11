@@ -39,7 +39,6 @@ class PegawaiController extends Controller
         return redirect()->route('pegawai.show');
     }
 
-
     public function show(Request $request)
     {
         $data = $request->session()->get('mahasiswa_data');
@@ -52,9 +51,14 @@ class PegawaiController extends Controller
         $tanggalLahir = Carbon::parse($data['tanggal_lahir']);
         $tglWisuda = Carbon::parse($data['tgl_harus_wisuda']);
 
-        $umur = $tanggalLahir->diffInYears($today);
+        $umur = $today->year - $tanggalLahir->year;
 
-        $jarakHari = $today->diffInDays($tglWisuda, false);
+        if ($today->month < $tanggalLahir->month ||
+            ($today->month == $tanggalLahir->month && $today->day < $tanggalLahir->day)) {
+            $umur--;
+        }
+
+        $jarakHari = round($today->diffInDays($tglWisuda, false));
 
         $hobiArray = explode(',', $data['hobi']);
         $hobiArray = array_map('trim', $hobiArray);
@@ -65,7 +69,7 @@ class PegawaiController extends Controller
 
         $result = [
             'name' => $data['name'],
-            'my_age' => $umur,
+            'my_age' => $umur, 
             'hobbies' => $hobiArray,
             'tgl_harus_wisuda' => $tglWisuda->format('d F Y'),
             'time_to_study_left' => $jarakHari >= 0 ? "$jarakHari hari lagi" : "Sudah lewat " . abs($jarakHari) . " hari",
