@@ -7,40 +7,86 @@ use Carbon\Carbon;
 
 class PegawaiController extends Controller
 {
+    /**
+     * Display a listing of the resource - MENAMPILKAN FORM INPUT
+     */
     public function index()
     {
-        $name = "Ilham Pratama";
-        $tanggal_lahir = Carbon::create(2003, 5, 12);
-        $tgl_harus_wisuda = Carbon::create(2026, 7, 15);
-        $current_semester = 4;
-        $future_goal = "Menjadi Software Engineer di perusahaan besar";
+        return view('pegawai-form'); // Langsung return view form
+    }
 
-        // Hitung umur
-        $my_age = $tanggal_lahir->age;
+    /**
+     * Menyimpan data dari form
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:100',
+            'tanggal_lahir' => 'required|date',
+            'hobi' => 'required|string',
+            'tgl_harus_wisuda' => 'required|date',
+            'current_semester' => 'required|integer|min:1|max:14',
+            'future_goal' => 'required|string|max:200',
+        ]);
 
-        // Daftar hobi minimal 5 item
-        $hobbies = ["Ngoding", "Mendengarkan musik", "Main game", "Nonton film", "Bersepeda"];
+        // Validasi minimal 5 hobi
+        $hobiArray = explode(',', $request->hobi);
+        $hobiArray = array_map('trim', $hobiArray);
 
-        // Hitung jarak hari dari hari ini ke tanggal wisuda
-        $time_to_study_left = Carbon::now()->diffInDays($tgl_harus_wisuda, false);
-
-        // Pesan motivasi tergantung semester
-        if ($current_semester < 3) {
-            $motivasi = "Masih awal, kejar TAK!";
-        } else {
-            $motivasi = "Jangan main-main, kurang-kurangi main game!";
+        if (count($hobiArray) < 5) {
+            return redirect()->route('pegawai.index')->withErrors([
+                'hobi' => 'Minimal harus ada 5 hobi yang dipisahkan dengan koma'
+            ])->withInput();
         }
 
-        // Kirim data ke view
-        return view('pegawai', [
-            'name' => $name,
-            'my_age' => $my_age,
-            'hobbies' => $hobbies,
-            'tgl_harus_wisuda' => $tgl_harus_wisuda->format('d-m-Y'),
-            'time_to_study_left' => $time_to_study_left,
-            'current_semester' => $current_semester,
-            'motivasi' => $motivasi,
-            'future_goal' => $future_goal
-        ]);
+        // Simpan data ke session untuk ditampilkan di halaman show
+        $request->session()->put('mahasiswa_data', $request->all());
+
+        return redirect()->route('pegawai.show');
+    }
+
+    /**
+     * Menampilkan data mahasiswa yang telah diinput
+     */
+    public function show(Request $request)
+    {
+        $data = $request->session()->get('mahasiswa_data');
+
+        if (!$data) {
+            return redirect()->route('pegawai.index');
+        }
+
+        // Proses perhitungan
+        $today = Carbon::now();
+        $tanggalLahir = Carbon::parse($data['tanggal_lahir']);
+        $tglWisuda = Carbon::parse($data['tgl_harus_wisuda']);
+
+        // Hitung umur
+        $umur = $tanggalLahir->diffInYears($today);
+
+        // Hitung jarak hari sampai wisuda
+        $jarakHari = $today->diffInDays($tglWisuda, false);
+
+        // Konversi hobi dari string ke array
+        $hobiArray = explode(',', $data['hobi']);
+        $hobiArray = array_map('trim', $hobiArray);
+
+        // Pesan berdasarkan semester
+        $pesanSemester = $data['current_semester'] < 3
+            ? "Masih Awal, Kejar TAK"
+            : "Jangan main-main, kurang-kurangi main game!";
+
+        $result = [
+            'name' => $data['name'],
+            'my_age' => $umur,
+            'hobbies' => $hobiArray,
+            'tgl_harus_wisuda' => $tglWisuda->format('d F Y'),
+            'time_to_study_left' => $jarakHari >= 0 ? "$jarakHari hari lagi" : "Sudah lewat " . abs($jarakHari) . " hari",
+            'current_semester' => $data['current_semester'],
+            'semester_message' => $pesanSemester,
+            'future_goal' => $data['future_goal']
+        ];
+
+        return view('pegawai-show', $result);
     }
 }

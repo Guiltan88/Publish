@@ -70,13 +70,24 @@
 <body>
   <main class="login-container" role="main" aria-labelledby="loginTitle">
     <h2 id="loginTitle">Login</h2>
-    <form>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form action="{{ route('auth.login') }}" method="POST">
+        @csrf
       <label for="username">Username</label>
       <input type="text" id="username" name="username" placeholder="Masukkan username" required autocomplete="username" />
 
       <label for="password">Password</label>
       <input type="password" id="password" name="password" placeholder="Masukkan password" required autocomplete="current-password" />
 
+      <a href="resource/views/form-setelah-login.blade.php"></a>
       <button type="submit">Masuk</button>
     </form>
   </main>

@@ -22,7 +22,7 @@ class AuthController extends Controller
         ],[
             'username.required' => 'Username wajib diisi',
             'password.required' => 'Password wajib diisi',
-            'password.min' => 'Paswword minimal 3 Karakter',
+            'password.min' => 'Password minimal 3 Karakter',
             'password.regex' => 'Password harus mengandung minimal satu huruf kaptal',
         ]);
 

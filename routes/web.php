@@ -46,8 +46,10 @@ Route::post('question/store', [QuestionController::class, 'store'])
 
 Route::get('/auth', [App\Http\Controllers\AuthController::class, 'index']);
 
-Route::post('/auth/login', [App\Http\Controllers\AuthController::class, 'login'])
+Route::post('auth/login', [App\Http\Controllers\AuthController::class, 'login'])
     ->name('auth.login');
 
-Route::get('/pegawai', [PegawaiController::class, 'index']);
+Route::get('/pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');
+Route::post('/pegawai/store', [PegawaiController::class, 'store'])->name('pegawai.store');
+Route::get('/pegawai/show', [PegawaiController::class, 'show'])->name('pegawai.show');
 //Ilham Aryansyah is here to be the number one
