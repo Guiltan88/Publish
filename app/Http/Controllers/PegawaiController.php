@@ -7,17 +7,13 @@ use Carbon\Carbon;
 
 class PegawaiController extends Controller
 {
-    /**
-     * Display a listing of the resource - MENAMPILKAN FORM INPUT
-     */
+
     public function index()
     {
-        return view('pegawai-form'); // Langsung return view form
+        return view('pegawai-form');
     }
 
-    /**
-     * Menyimpan data dari form
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -29,7 +25,6 @@ class PegawaiController extends Controller
             'future_goal' => 'required|string|max:200',
         ]);
 
-        // Validasi minimal 5 hobi
         $hobiArray = explode(',', $request->hobi);
         $hobiArray = array_map('trim', $hobiArray);
 
@@ -39,15 +34,12 @@ class PegawaiController extends Controller
             ])->withInput();
         }
 
-        // Simpan data ke session untuk ditampilkan di halaman show
         $request->session()->put('mahasiswa_data', $request->all());
 
         return redirect()->route('pegawai.show');
     }
 
-    /**
-     * Menampilkan data mahasiswa yang telah diinput
-     */
+
     public function show(Request $request)
     {
         $data = $request->session()->get('mahasiswa_data');
@@ -56,22 +48,17 @@ class PegawaiController extends Controller
             return redirect()->route('pegawai.index');
         }
 
-        // Proses perhitungan
         $today = Carbon::now();
         $tanggalLahir = Carbon::parse($data['tanggal_lahir']);
         $tglWisuda = Carbon::parse($data['tgl_harus_wisuda']);
 
-        // Hitung umur
         $umur = $tanggalLahir->diffInYears($today);
 
-        // Hitung jarak hari sampai wisuda
         $jarakHari = $today->diffInDays($tglWisuda, false);
 
-        // Konversi hobi dari string ke array
         $hobiArray = explode(',', $data['hobi']);
         $hobiArray = array_map('trim', $hobiArray);
 
-        // Pesan berdasarkan semester
         $pesanSemester = $data['current_semester'] < 3
             ? "Masih Awal, Kejar TAK"
             : "Jangan main-main, kurang-kurangi main game!";
