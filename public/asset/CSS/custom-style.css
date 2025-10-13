@@ -4,11 +4,12 @@
 }
 
 @font-face {
-    font-family: 'MyCustomFont';
-    src: url('asset/Font/MyCustomFont.ttf');
+    font-family: "Licorice", cursive;
+    src: url('asset/Font/Licorice-Regular.ttf');
 }
 
 .font-custom{
-    font-family: 'MyCustomFont';
+    font-family: "Licorice", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
-
