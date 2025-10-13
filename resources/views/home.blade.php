@@ -114,7 +114,7 @@
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
-                        <img src="{{ asset('Image/gambar.jpg') }}" alt="Logo">
+                        <img src="{{ asset('asset/Image/gambar1.jpg') }}" alt="Logo" class="navbar-logo">
                     </div>
                 </div>
             </div>
