@@ -39,7 +39,7 @@ Route::get('/about',function(){
 Route::get('/matakuliah', [MatakuliahController::class, 'index']);
 Route::get('/matakuliah/show/{id?}', [MatakuliahController::class, 'show']);
 
-Route::get('/home',[HomeController::class, 'index']);
+Route::get('/home',[QuestionController::class, 'index'])->name('home.index');
 
 Route::post('question/store', [QuestionController::class, 'store'])
 		->name('question.store');

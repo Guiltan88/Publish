@@ -8,7 +8,7 @@ class QuestionController extends Controller
 {
     public function index()
     {
-        //
+        return view('home');
     }
     public function store(Request $request)
     {
@@ -21,6 +21,9 @@ class QuestionController extends Controller
             'email.email' => 'Format email tidak valid'
         ]);
 
-        return view('home-question-respon', $request);
+        // return view('home-question-respon', $request);
+        return redirect()->route('home.index')->with('info', 'Ya ya ya saya setuju');
+
+
     }
 }
