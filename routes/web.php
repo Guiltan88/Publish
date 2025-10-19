@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\QuestionController;
@@ -57,5 +58,8 @@ Route::post('/pegawai/store', [PegawaiController::class, 'store'])
 
 Route::get('/pegawai/show', [PegawaiController::class, 'show'])
     ->name('pegawai.show');
+
+Route::get('dashboard',[DashboardController::class, 'index'])
+    ->name('dashboard');
 
 //Ilham Aryansyah is here to be the number one
