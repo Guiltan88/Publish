@@ -6,6 +6,7 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PelangganController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -61,5 +62,7 @@ Route::get('/pegawai/show', [PegawaiController::class, 'show'])
 
 Route::get('dashboard',[DashboardController::class, 'index'])
     ->name('dashboard');
+
+Route::resource('pelanggan', PelangganController::class);
 
 //Ilham Aryansyah is here to be the number one
