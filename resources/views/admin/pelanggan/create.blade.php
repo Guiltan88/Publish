@@ -1,4 +1,4 @@
-@extends('admin.template')
+@extends('admin.Layouts.app')
 @section('title', 'Tambah Pelanggan')
 @section('content')
 

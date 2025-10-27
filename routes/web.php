@@ -7,7 +7,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PelangganController;
-
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MatakuliahController;
@@ -64,5 +64,7 @@ Route::get('dashboard',[DashboardController::class, 'index'])
     ->name('dashboard');
 
 Route::resource('pelanggan', PelangganController::class);
+
+Route::resource('user',UserController::class);
 
 //Ilham Aryansyah is here to be the number one
