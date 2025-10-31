@@ -3,30 +3,59 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function showLoginForm()
     {
-        return view('login-form');
+        return view('admin.login');
     }
 
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required|max:10',
-            'password' => ['required','min:3','regex:/[A-Z]/'],
-        ],[
-            'username.required' => 'Username wajib diisi',
-            'password.required' => 'Password wajib diisi',
-            'password.min' => 'Password minimal 3 Karakter',
-            'password.regex' => 'Password harus mengandung minimal satu huruf kaptal',
+            'email' => 'required|email',
+            'password' => 'required|min:8'
         ]);
 
-        return view('form-setelah-login',$request);
+        $credentials = $request->only('email', 'password');
 
+        // Cari user berdasarkan email
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return redirect()->back()
+                ->withInput($request->only('email'))
+                ->withErrors([
+                    'email' => 'Username tidak ditemukan.',
+                ]);
+        }
+
+        // Cek password dengan Hash::check
+        if (!Hash::check($request->password, $user->password)) {
+            return redirect()->back()
+                ->withInput($request->only('email'))
+                ->withErrors([
+                    'password' => 'Password yang dimasukkan salah.',
+                ]);
+        }
+
+        // Login user
+        Auth::login($user);
+
+        return redirect()->route('dashboard')->with('success', 'Login berhasil!');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }
