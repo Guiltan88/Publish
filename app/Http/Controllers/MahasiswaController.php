@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
@@ -11,7 +11,8 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        //
+        $data['dataMahasiswa'] = Mahasiswa::all();
+        return view('admin.mahasiswa.index',$data);
     }
 
     /**
@@ -19,7 +20,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.mahasiswa.create');
     }
 
     /**
@@ -27,7 +28,23 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nim' => 'required|int|max:100',
+            'nama_mahasiswa' => 'required|string|max:100',
+            'email' => 'required|email|unique:users,email',
+            'jurusan' => 'required|min:8|confirmed',
+            'alamat' => 'required|min:8|confirmed'
+        ]);
+
+        Mahasiswa::create([
+            'nim' => $request->nim,
+            'name' => $request->name,
+            'email' => $request->email,
+            'jurusan' => $request->jurusan,
+            'alamat' => $request->alamat
+        ]);
+
+        return redirect()->route('mahasiswa.index')->with('success', 'Data user berhasil ditambahkan!');
     }
 
     /**
@@ -35,11 +52,7 @@ class MahasiswaController extends Controller
      */
     public function show(string $param1)
     {
-        if($param1 == 'detail'){
-            return view('halaman-mahasiswa-detail');
-        }else if($param1 == 'profil'){
-            return view('halaman-mahasiswa-profil');
-        }
+        
     }
 
     /**
@@ -47,7 +60,8 @@ class MahasiswaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['dataMahasiswa'] = Mahasiswa::findOrFail($id);
+        return view('admin.mahasiswa.edit', $data);
     }
 
     /**
@@ -55,7 +69,18 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'nim' => 'required',
+            'nama_mahasiswa' => 'required',
+            'email' => 'required',
+            'jurusan' => 'required|date',
+            'alamat' => 'required|in:Male,Female'
+        ]);
+
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa->update($validated);
+
+        return redirect()->route('mahasiswa.index')->with('success', 'Data Berhasil Diupdate!');
     }
 
     /**
@@ -63,6 +88,8 @@ class MahasiswaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa->delete();
+        return redirect()->route('mahasiswa.index')->with('success', 'Data Berhasil Dihapus!');
     }
 }

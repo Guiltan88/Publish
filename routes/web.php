@@ -66,4 +66,6 @@ Route::resource('pelanggan', PelangganController::class);
 
 Route::resource('user',UserController::class);
 
+Route::resource('mahasiswa', MahasiswaController::class);
+
 //Ilham Aryansyah is here to be the number one
