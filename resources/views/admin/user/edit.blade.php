@@ -2,6 +2,10 @@
 @section('title', 'Edit User')
 @section('content')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ca8a89e0a59480676c81812cb3bf26c47080d020
         <div class="py-4">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
