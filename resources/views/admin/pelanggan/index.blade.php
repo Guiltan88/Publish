@@ -17,7 +17,7 @@
             </nav>
             <div class="d-flex justify-content-between w-100 flex-wrap">
                 <div class="mb-3 mb-lg-0">
-                    <h1 class="h4">Data Pelanggan</h1>
+                    <h1 class="h4">Data Pelanggan Kontol</h1>
                     <p class="mb-0">List data seluruh pelanggan</p>
                 </div>
                 <div>
@@ -88,6 +88,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="mt-3">
+                                    {{ $dataPelanggan->links('pagination::bootstrap-5') }}
+                                </div>
                         </div>
                     </div>
                 </div>
