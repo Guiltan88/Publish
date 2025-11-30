@@ -9,11 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 class CreatePelangganDummy extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(){
-        $faker = \Faker\Factory::create();
+    $faker = \Faker\Factory::create();
 
         foreach (range(1, end: 100) as $index) {
             DB::table('pelanggan')->insert([
