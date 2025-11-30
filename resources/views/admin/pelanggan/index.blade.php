@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                             </form>
-                            
+
                             <table id="table-pelanggan" class="table table-centered table-nowrap mb-0 rounded">
                                 <thead class="thead-light">
                                     <tr>
@@ -69,6 +69,7 @@
                                 <tbody>
                                     @foreach($dataPelanggan as $item)
                                         <tr>
+                                            <td>{{($dataPelanggan->currentPage() - 1) * $dataPelanggan->perPage() + $item->iteration}}</td>
                                             <td>{{ $item->first_name }}</td>
                                             <td>{{ $item->last_name }}</td>
                                             <td>{{ $item->birthday }}</td>
@@ -114,6 +115,8 @@
                             <div class="mt-3">
                                     {{ $dataPelanggan->links('pagination::bootstrap-5') }}
                                 </div>
+
+
                         </div>
                     </div>
                 </div>
