@@ -57,7 +57,6 @@
                             <table id="table-pelanggan" class="table table-centered table-nowrap mb-0 rounded">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th class="border-0">#</th>
                                         <th class="border-0">First Name</th>
                                         <th class="border-0">Last Name</th>
                                         <th class="border-0">Birthday</th>
@@ -70,8 +69,6 @@
                                 <tbody>
                                     @foreach($dataPelanggan as $item)
                                         <tr>
-                                            <td>{{ ($dataPelanggan->currentPage() - 1) * $dataPelanggan->perPage() + $loop->iteration }}</td>
-
                                             <td>{{ $item->first_name }}</td>
                                             <td>{{ $item->last_name }}</td>
                                             <td>{{ $item->birthday }}</td>
@@ -117,8 +114,6 @@
                             <div class="mt-3">
                                     {{ $dataPelanggan->links('pagination::bootstrap-5') }}
                                 </div>
-
-
                         </div>
                     </div>
                 </div>
