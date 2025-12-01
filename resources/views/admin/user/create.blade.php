@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('admin.Layouts.app')
 @section('title', 'Tambah User')
 @section('content')
 

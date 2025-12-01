@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('admin.Layouts.app')
 @section('title', 'List User')
 @section('content')
 {{-- content --}}
