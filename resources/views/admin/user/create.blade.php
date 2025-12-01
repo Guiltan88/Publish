@@ -55,6 +55,25 @@
                                         <input type="text" id="password" name="password" class="form-control">
                                     </div>
 
+                                 <div class="mb-3">
+                                    <label>Pilih Role</label>
+                                    <select name="role" class="form-control" required>
+                                        <option value="">-- Pilih --</option>
+                                        @foreach($roles as $role)
+                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <!-- Input Foto -->
+                                <div class="mb-3">
+                                    <label>Foto Profil</label>
+                                    <input type="file" name="avatar" class="form-control">
+                                </div>
+
+
+
+
                                     <!-- Buttons -->
                                     <div class="">
                                         <button type="submit" class="btn btn-primary">Simpan</button>

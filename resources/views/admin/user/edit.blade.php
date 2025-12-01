@@ -60,6 +60,28 @@
                                         <input type="text" id="password" name="password" value="{{ $dataUser->password }}" class="form-control" required>
                                     </div>
 
+                                    <!-- Edit Role (Dengan Selected otomatis) -->
+                                    <div class="mb-3">
+                                        <label>Pilih Role</label>
+                                        <select name="role" class="form-control" required>
+                                            @foreach($roles as $role)
+                                            <option value="{{ $role->name }}" {{ $dataUser->hasRole($role->name) ? 'selected' : '' }}>
+                                                {{ $role->name }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <!-- Edit Foto -->
+                                    <div class="mb-3">
+                                        <label>Ganti Foto (Kosongkan jika tidak ingin ganti)</label>
+                                        <input type="file" name="avatar" class="form-control">
+                                        @if($dataUser->avatar)
+                                        <small>Foto saat ini: <img src="{{ asset('storage/'.$dataUser->avatar) }}" width="50"></small>
+                                        @endif
+                                    </div>
+
+
                                     <!-- Buttons -->
                                     <div class="">
                                         <button type="submit" class="btn btn-primary">Simpan</button>
