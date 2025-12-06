@@ -69,6 +69,13 @@
                                 <div class="mb-3">
                                     <label>Foto Profil</label>
                                     <input type="file" name="avatar" class="form-control">
+
+                                    @if($dataUser->avatar)
+                                        <div class="mt-2">
+                                            <small>Foto saat ini:</small><br>
+                                            <img src="{{ asset('storage/'.$dataUser->avatar) }}" width="70" class="rounded shadow-sm mt-1">
+                                        </div>
+                                    @endif
                                 </div>
 
 
