@@ -2,10 +2,6 @@
 @section('title', 'Edit User')
 @section('content')
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ca8a89e0a59480676c81812cb3bf26c47080d020
         <div class="py-4">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
@@ -35,32 +31,39 @@
             <div class="col-12 mb-4">
                 <div class="card border-0 shadow components-section">
                     <div class="card-body">
-                        <form action="{{ route('user.update', $dataUser->id) }}" method="POST">
+
+                        <!-- FIX: tambah enctype untuk upload file -->
+                        <form action="{{ route('user.update', $dataUser->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+
                             <div class="row mb-4">
                                 <div class="col-lg-4 col-sm-6">
+
                                     <!-- Name -->
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
                                         <input type="text" id="name" name="name" value="{{ $dataUser->name }}" class="form-control" required>
                                     </div>
+
                                 </div>
 
                                 <div class="col-lg-4 col-sm-12">
+
                                     <!-- Email -->
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="text" id="email" name="email" value="{{ $dataUser->email }}" class="form-control" required>
                                     </div>
 
-                                    <!-- Phone -->
+                                    <!-- Password -->
+                                    <!-- FIX: Jangan tampilkan hash password -->
                                     <div class="mb-3">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="text" id="password" name="password" value="{{ $dataUser->password }}" class="form-control" required>
+                                        <label for="password" class="form-label">Password (Opsional)</label>
+                                        <input type="password" id="password" name="password" class="form-control" placeholder="Kosongkan jika tidak ingin ganti password">
                                     </div>
 
-                                    <!-- Edit Role (Dengan Selected otomatis) -->
+                                    <!-- Edit Role -->
                                     <div class="mb-3">
                                         <label>Pilih Role</label>
                                         <select name="role" class="form-control" required>
@@ -74,10 +77,14 @@
 
                                     <!-- Edit Foto -->
                                     <div class="mb-3">
-                                        <label>Ganti Foto (Kosongkan jika tidak ingin ganti)</label>
+                                        <label>Ganti Foto (Opsional)</label>
                                         <input type="file" name="avatar" class="form-control">
+
                                         @if($dataUser->avatar)
-                                        <small>Foto saat ini: <img src="{{ asset('storage/'.$dataUser->avatar) }}" width="50"></small>
+                                            <div class="mt-2">
+                                                <small>Foto saat ini:</small><br>
+                                                <img src="{{ asset('storage/'.$dataUser->avatar) }}" width="70" class="rounded shadow-sm mt-1">
+                                            </div>
                                         @endif
                                     </div>
 
@@ -86,12 +93,16 @@
                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                         <a href="{{ route('user.index') }}" class="btn btn-outline-secondary ms-2">Batal</a>
                                     </div>
+
                                 </div>
                             </div>
+
                         </form>
+
                     </div>
 
                 </div>
             </div>
         </div>
-        @endsection
+
+@endsection

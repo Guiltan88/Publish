@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PegawaiController;
@@ -100,6 +101,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('user', UserController::class);
         Route::resource('pelanggan', PelangganController::class);
     });
+
+
 });
+
+Route::resource('profile', ProfileController::class);
+
 
 //Ilham Aryansyah is here to be the number one
