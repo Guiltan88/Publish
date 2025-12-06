@@ -45,9 +45,7 @@
                                     </svg>
                                     Settings
                                 </a>
-                                <form id="logout-form" action="{{ route('profile.index') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
+
 
                                 <div role="separator" class="dropdown-divider my-1"></div>
 
