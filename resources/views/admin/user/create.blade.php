@@ -31,64 +31,52 @@
             <div class="col-12 mb-4">
                 <div class="card border-0 shadow components-section">
                     <div class="card-body">
-                        <form action="{{ route('user.store') }}" method="POST">
+                        <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-4">
                                 <div class="col-lg-4 col-sm-6">
-                                    <!-- First Name -->
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
                                         <input type="text" id="name" name="name" class="form-control" required>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-4 col-sm-6">
-                                    <!-- Email -->
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="text" id="email" name="email" class="form-control" required>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-4 col-sm-12">
-                                    <!-- Password -->
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
                                         <input type="text" id="password" name="password" class="form-control">
                                     </div>
 
-                                 <div class="mb-3">
-                                    <label>Pilih Role</label>
-                                    <select name="role" class="form-control" required>
-                                        <option value="">-- Pilih --</option>
-                                        @foreach($roles as $role)
-                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                    <div class="mb-3">
+                                        <label>Pilih Role</label>
+                                        <select name="role" class="form-control" required>
+                                            <option value="">-- Pilih --</option>
+                                            @foreach($roles as $role)
+                                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
-                                <!-- Input Foto -->
-                                <div class="mb-3">
-                                    <label>Foto Profil</label>
-                                    <input type="file" name="avatar" class="form-control">
+                                    <div class="mb-3">
+                                        <label>Foto Profil</label>
+                                        <input type="file" name="avatar" class="form-control">
+                                    </div>
 
-                                    @if($dataUser->avatar)
-                                        <div class="mt-2">
-                                            <small>Foto saat ini:</small><br>
-                                            <img src="{{ asset('storage/'.$dataUser->avatar) }}" width="70" class="rounded shadow-sm mt-1">
-                                        </div>
-                                    @endif
-                                </div>
-
-
-
-
-                                    <!-- Buttons -->
-                                    <div class="">
+                                    <div>
                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                         <a href="{{ route('user.index') }}" class="btn btn-outline-secondary ms-2">Batal</a>
                                     </div>
                                 </div>
                             </div>
                         </form>
+
                     </div>
 
                 </div>
