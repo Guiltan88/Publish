@@ -67,11 +67,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
 
-                                    <td>
-                                        <span class="badge bg-primary">
-                                            {{ $item->getRoleNames()->first() ?? 'No Role' }}
-                                        </span>
-                                    </td>
+                                    <td>{{ $item->getRoleNames()->first() ?? 'No Role' }}</td>
 
                                     <td>
                                         <a href="{{ route('user.edit', $item->id) }}" class="btn btn-info btn-sm">
