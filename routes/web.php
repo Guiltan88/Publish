@@ -108,7 +108,6 @@ Route::middleware('auth')->group(function () {
 Route::resource('profile', ProfileController::class);
 
 Route::get('/multipleuploads', [MultipleuploadsController::class, 'index'])->name('uploads');
-
 Route::post('/save',[MultipleuploadsController::class, 'store'])->name('uploads.store');
 
 //Ilham Aryansyah is here to be the number one
