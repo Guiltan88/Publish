@@ -12,7 +12,7 @@ class MultipleuploadsController extends Controller
      */
     public function index()
     {
-        return view('Uploads.multipleuploads');
+        return view('admin.Uploads.multipleuploads');
     }
 
     public function store(Request $request)
