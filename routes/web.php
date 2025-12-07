@@ -10,7 +10,7 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MultipleuploadsController;
 use App\Http\Controllers\MatakuliahController;
 
 Route::get('/',function(){
@@ -107,7 +107,8 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('profile', ProfileController::class);
 
-Route::get('/multipleuploads', 'MultipleuploadsController@index')->name('uploads');
-Route::post('/save','MultipleuploadsController@store')->name('uploads.store');
+Route::get('/multipleuploads', [MultipleuploadsController::class, 'index']);
+
+Route::post('/save',[MultipleuploadsController::class, 'store']);
 
 //Ilham Aryansyah is here to be the number one
